@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'cloudinary',
     'cloudinary_storage',
+    'crispy_forms',
 
     # local apps
-    'nyumbax'
+    'nyumbax',
 ]
 
 MIDDLEWARE = [
