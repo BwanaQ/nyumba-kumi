@@ -37,6 +37,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     body = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
