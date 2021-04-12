@@ -1,0 +1,107 @@
+{% extends 'nyumbax/base.html' %} 
+{% load crispy_forms_tags %} 
+{% load static %} 
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="card border-0 shadow">
+        <img
+          class="card-img-top"
+          src="{{project.image.url}}"
+          alt="Card image cap"
+        />
+        <div class="card-header">
+          <p class="text-uppercase"><strong>{{project.title}}</strong></p>
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title"><strong>{{project.creator}}</strong><span class="float-end text muted "><small>{{project.timestamp| date:"D d M Y"}}</small></span></h5>
+          
+          <div class="card-footer">
+            <small class="text-uppercase">by {{project.creator}}</small>
+            <a href="{{ project.link }}" target="_blank" class="btn btn-outline-success btn-circle btn-sm m-2"><i class="fa fa-eye" aria-hidden="true"></i></a>
+            <a href="{% url 'add_rating' project.id %}" class="btn btn-outline-secondary btn-circle btn-sm  m-2"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+            {% if project.creator == user %}
+            <a href="{% url 'awwward-delete' project.id %}" class="btn btn-outline-danger btn-circle btn-sm float-end m-2"><i class="far fa-trash-alt"></i></a>
+            <a href="{% url 'awwward-update' project.id %}" class="btn btn-outline-primary  btn-sm btn-circle float-end m-2"><i class="fas fa-edit"></i></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  <div class="row">
+    {% if not project.ratings.all %}
+      No comments yet.... 
+      <a href="{% url 'add_rating' project.id %}" class="btn btn-outline-secondary btn-sm  m-2">Rate Site</a>
+      {% else %} 
+      {% for rating in project.ratings.all %}
+      <hr>
+      <small class="text-capitalize"><strong>{{rating.creator.username}}</strong> - {{rating.timestamp | date:"D, d M Y"}}</small>
+      <div class="col-3">
+        <div class="c100 p{{ rating.design }}0 small light center orange">
+          <span>{{ rating.design }}0%</span>
+          <div class="slice">
+            <div class="bar">
+            </div>
+            <div class="fill">
+            </div>
+          </div>
+        </div>
+        <p class="text-center">Design</p>
+      </div>
+      <div class="col-3">
+        <div class="c100 p{{ rating.usability }}0 small light center green">
+          <span>{{ rating.usability }}0%</span>
+          <div class="slice">
+            <div class="bar">
+            </div>
+            <div class="fill">
+            </div>
+          </div>
+        </div>
+        <p class="text-center">Usability</p> 
+
+      </div>
+      <div class="col-3">
+        <div class="c100 p{{ rating.content }}0 small light center blue">
+          <span>{{ rating.content }}0%</span>
+          <div class="slice">
+            <div class="bar">
+            </div>
+            <div class="fill">
+            </div>
+          </div>
+        </div>
+        <p class="text-center">Content</p> 
+
+      </div>
+      <div class="col-3">
+        <div class="c100 p{{ rating.get_average_percentage }} small light center orange">
+          <span>{{ rating.get_average_percentage }}%</span>
+          <div class="slice">
+            <div class="bar">
+            </div>
+            <div class="fill">
+            </div>
+          </div>
+        </div>
+        <p class="text-center">Average</p> 
+
+      </div>
+      <div class="col-md-12">
+        {% if rating.creator == user %}
+        <a href="{% url 'rating-delete' rating.id %}" class="btn btn-outline-danger btn-sm float-end m-2">Delete</a>
+        <a href="{% url 'rating-update' rating.id %}" class="btn btn-outline-primary btn-sm float-end m-2">Edit</a>
+        {% endif %}
+
+      </div>
+        {% endfor %}
+      {% endif %}
+  </div>
+</div>
+</div>
+
+{% endblock %}

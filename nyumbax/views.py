@@ -11,7 +11,7 @@ from django.views.generic import (
 )
 from .models import Business, Hood, Essential, Location, Post
 from django.urls import reverse_lazy
-#from .forms import RatingCreateForm
+from .forms import PostCreateForm
 from django.shortcuts import get_object_or_404
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -31,9 +31,17 @@ class PostListView(ListView):
 
 class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Post
-    fields = ['image', 'title', 'body', 'link']
-    success_message = "The Post %(title) was created successfully!"
+    success_url = '/'
+    fields = ['title', 'body']
+    success_message = "The Post created successfully!"
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
+        form.instance.hood = self.request.user.profile.hood
         return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.creator:
+            return True
+        return False
