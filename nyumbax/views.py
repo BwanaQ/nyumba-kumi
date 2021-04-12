@@ -20,3 +20,20 @@ class PostListView(ListView):
     model = Post
     template_name = 'post_list.html'
     ordering = ['-timestamp']
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Post.objects.filter(title__icontains=query)
+        else:
+            return Post.objects.all()
+
+
+class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Post
+    fields = ['image', 'title', 'body', 'link']
+    success_message = "The Post %(title) was created successfully!"
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
