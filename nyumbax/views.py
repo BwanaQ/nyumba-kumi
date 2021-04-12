@@ -45,3 +45,38 @@ class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         if self.request.user == post.creator:
             return True
         return False
+
+
+class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Post
+    success_url = '/'
+    fields = ['title', 'body']
+    success_message = "The Post updated successfully!"
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        form.instance.hood = self.request.user.profile.hood
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.creator:
+            return True
+        return False
+
+
+class PostDetailView(DetailView):
+    model = Post
+    success_url = '/'
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = '/'
+    success_message = "The Post %(title) was deleted successfully!"
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.creator:
+            return True
+        return False
