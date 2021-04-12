@@ -56,11 +56,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
 
               <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                {% if user.is_authenticated %}
+
                   <li class="nav-item">
                     <a
                       class="nav-link active"
                       aria-current="page"
-                      href="#"
+                      href="{%url 'nyumbax-home'%}"
                       >Home</i
                     ></a>
                   </li>                
@@ -70,18 +72,19 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-capitalize" href="#">{{user.username}}</a>
+                  <a class="nav-link text-capitalize" href="{% url 'profile' %}">{{user.username}}</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Logout</a>
+                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
-
+                {% else %}
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Login</a>
+                  <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Register</a>
+                  <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
+                {% endif %}
               </ul>
               <form class="d-flex" method="GET" action="" id="searchform">
                 <input
@@ -106,17 +109,7 @@
           {% endfor %} {% endif %}
           {% block content %} {% endblock %}</div>
       </main>
-      <footer class="footer mt-auto py-3 bg-light">
-        <div class="container">
-          <span class="text-muted"
-            >&copy;2021. Built with lots of <i class="bi bi-heart-fill"></i> and
-            coffee by
-            <a href="http://obscure-savannah-56809.herokuapp.com/"
-              >THiNC.</a
-            ></span
-          >
-        </div>
-      </footer>
+
     </wrapper>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"

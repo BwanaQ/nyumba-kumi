@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css?family=Numans");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+.imgbox {
+  display: grid;
+  height: 100%;
+}
+.center-fit {
+  max-width: 100%;
+  max-height: auto;
+  background: url("/static/screenshot.jpg");
+  margin: auto;
+}
+body,
+html {
+  min-height: 100vh;
+  font-family: "Numans", sans-serif;
+}
+
+.flex-fill {
+  flex: 1 1 auto;
+}
+.footer {
+  margin: top -60px;
+  box-shadow: 0px -8px 8px -6px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+  padding: 0px 20px 0px 20px;
+}
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+/*
+https://www.pexels.com/photo/high-angle-shot-of-suburban-neighborhood-1546168/
+*/
