@@ -25,6 +25,7 @@ class Hood(models.Model):
 
     def all_users(request):
         members = Hood.objects.anotate(number_of_members=Count('user'))
+        return number_of_members
 
 
 class Business(models.Model):
