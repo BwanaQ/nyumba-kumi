@@ -7,9 +7,10 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+
 )
-from .models import Business, Hood, Essential, Location, Post
+from .models import Post, Business
 from django.urls import reverse_lazy
 from .forms import PostCreateForm
 from django.shortcuts import get_object_or_404
@@ -78,5 +79,71 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.creator:
+            return True
+        return False
+
+
+class BusinessListView(ListView):
+    model = Business
+    template_name = 'business_list.html'
+    queryset = Business.objects.order_by('-timestamp')
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Business.objects.filter(title__icontains=query)
+        else:
+            return Business.objects.order_by('-timestamp')
+
+
+class BusinessCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Business
+    success_url = '/'
+    fields = ['title', 'email']
+    success_message = "Business created successfully!"
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.hood = self.request.user.profile.hood
+        return super().form_valid(form)
+
+    def test_func(self):
+        business = self.get_object()
+        if self.request.user == business.owner:
+            return True
+        return False
+
+
+class BusinessUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Business
+    success_url = '/'
+    fields = ['title', 'body']
+    success_message = "The Business updated successfully!"
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.hood = self.request.user.profile.hood
+        return super().form_valid(form)
+
+    def test_func(self):
+        business = self.get_object()
+        if self.request.user == business.owner:
+            return True
+        return False
+
+
+class BusinessDetailView(DetailView):
+    model = Business
+    success_url = '/'
+
+
+class BusinessDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Business
+    success_url = '/'
+    success_message = "The Business %(title) was deleted successfully!"
+
+    def test_func(self):
+        business = self.get_object()
+        if self.request.user == business.owner:
             return True
         return False

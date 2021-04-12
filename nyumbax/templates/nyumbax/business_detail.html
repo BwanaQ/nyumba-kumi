@@ -1,0 +1,60 @@
+{% extends 'nyumbax/base.html' %} {% block content %}
+<div class="row pt-5">
+  <div class="col-12">
+    <h2 class="text-center">Businesses</h2>
+  </div>
+  <hr />
+</div>
+<div class="row">
+  <div class="col-12">
+    <a
+      href="{% url 'business-create' %}"
+      class="btn btn-primary btn-sm btn-circle float-start m-2 shadow"
+      ><i class="fa fa-plus" aria-hidden="true"></i
+    ></a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <table class="table table-striped border">
+      <thead>
+        <tr>
+          <th scope="col">Owner</th>
+          <th scope="col">Title</th>
+          <th scope="col">Email</th>
+          <th scope="col">Time Created</th>
+          <th scope="col">actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">{{ business.owner.username }}</th>
+          <td>{{ business.title }}</td>
+          <td>{{ business.email }}</td>
+          <td>{{business.timestamp| date:"D d M Y"}}</td>
+          <td>
+            <a
+              href="{% url 'business-detail' business.id %}"
+              target="_blank"
+              class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
+              ><i class="fa fa-eye" aria-hidden="true"></i
+            ></a>
+            {% if business.owner == user %}
+            <a
+              href="{% url 'business-delete' business.id %}"
+              class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"
+              ><i class="far fa-trash-alt"></i
+            ></a>
+            <a
+              href="{% url 'business-update' business.id %}"
+              class="btn btn-outline-primary btn-sm btn-circle m-2 shadow shadow"
+              ><i class="fas fa-edit"></i
+            ></a>
+            {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

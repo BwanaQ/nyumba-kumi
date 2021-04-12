@@ -7,6 +7,13 @@ from .views import (
     PostDeleteView,
     PostDetailView,
 
+
+    BusinessListView,
+    BusinessCreateView,
+    BusinessUpdateView,
+    BusinessDeleteView,
+    BusinessDetailView,
+
 )
 
 urlpatterns = [
@@ -15,4 +22,12 @@ urlpatterns = [
     path('post/new/', PostCreateView.as_view(), name="nyumbax-create"),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name="nyumbax-update"),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name="nyumbax-delete"),
+
+    path('business/', BusinessListView.as_view(), name="business-home"),
+    path('business/<int:pk>/', BusinessDetailView.as_view(), name="business-detail"),
+    path('business/new/', BusinessCreateView.as_view(), name="business-create"),
+    path('business/<int:pk>/update/',
+         BusinessUpdateView.as_view(), name="business-update"),
+    path('business/<int:pk>/delete/',
+         BusinessDeleteView.as_view(), name="business-delete"),
 ]
