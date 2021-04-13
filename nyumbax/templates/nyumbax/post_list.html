@@ -1,3 +1,6 @@
+
+
+
 {% extends 'nyumbax/base.html' %} {% block content %}
 <div class="row pt-5">
   <div class="col-12">
@@ -15,48 +18,36 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12">
-    <table class="table table-striped border">
-      <thead>
-        <tr>
-          <th scope="col">Creator</th>
-          <th scope="col">Title</th>
-          <th scope="col">Body</th>
-          <th scope="col">Time</th>
-          <th scope="col">actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for post in object_list %}
-        <tr>
-          <th scope="row">{{ post.creator.username }}</th>
-          <td>{{ post.title }}</td>
-          <td>{{ post.body }}</td>
-          <td>{{post.timestamp| date:"D d M Y"}}</td>
-          <td>
-            <a
-              href="{% url 'nyumbax-detail' post.id %}"
-              target="_blank"
-              class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
-              ><i class="fa fa-eye" aria-hidden="true"></i
-            ></a>
-            {% if post.creator == user %}
-            <a
-              href="{% url 'nyumbax-delete' post.id %}"
-              class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"
-              ><i class="far fa-trash-alt"></i
-            ></a>
-            <a
-              href="{% url 'nyumbax-update' post.id %}"
-              class="btn btn-outline-primary btn-sm btn-circle m-2 shadow shadow"
-              ><i class="fas fa-edit"></i
-            ></a>
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  {% for post in object_list %}
+  <div class="col-md-3 col-sm-6 py-3">
+    <div class="card card-block">
+      <img class="card-img" src="{{post.image.url}}" alt="Photo of sunset">
+      <h5 class="card-title mt-3 mb-3 px-2"><strong class="text-capitalize"> {{post.title }}</strong></h5>
+      <p class="px-2"><i class="fas fa-user me-3"></i></i>{{ post.creator.username }}</p>
+      <small class = "text-muted text-uppercase px-2">created on {{post.timestamp| date:"D d M Y"}}</small>
+      <div class="px-2">
+        <a
+        href="{% url 'nyumbax-detail' post.id %}"
+        target="_blank"
+        class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
+        ><i class="fa fa-eye" aria-hidden="true"></i
+      ></a>
+      {% if post.creator == user %}
+      <a
+        href="{% url 'nyumbax-delete' post.id %}"
+        class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"
+        ><i class="far fa-trash-alt"></i
+      ></a>
+      <a
+        href="{% url 'nyumbax-update' post.id %}"
+        class="btn btn-outline-primary btn-sm btn-circle m-2 shadow shadow"
+        ><i class="fas fa-edit"></i
+      ></a>
+      {% endif %}
+      </div>
+    </div>
   </div>
+  {% endfor %}
+</div>
 </div>
 {% endblock %}

@@ -90,7 +90,7 @@ class BusinessListView(ListView):
 class BusinessCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Business
     success_url = '/'
-    fields = ['title', 'email', 'image']
+    fields = ['title', 'email', 'body', 'image']
     success_message = "Business created successfully!"
 
     def form_valid(self, form):
@@ -108,7 +108,7 @@ class BusinessCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class BusinessUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Business
     success_url = '/'
-    fields = ['title', 'email', 'image']
+    fields = ['title', 'email', 'body', 'image']
     success_message = "The Business updated successfully!"
 
     def form_valid(self, form):

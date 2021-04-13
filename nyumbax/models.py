@@ -26,7 +26,7 @@ class Business(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/')
     email = models.CharField(max_length=100)
-    body = models.CharField(max_length=100)
+    body = models.TextField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
