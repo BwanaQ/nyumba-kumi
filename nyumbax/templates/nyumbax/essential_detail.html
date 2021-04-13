@@ -18,7 +18,7 @@
   <div class="col-md-3 col-sm-6 py-3">
     <div class="card card-block">
       <img class="card-img" src="{{essential.image.url}}" alt="Photo of sunset">
-      <h5 class="card-title mt-3 mb-3 px-2"><strong class="text-capitalize"> {{essential.officer }}</strong> • {{ essential.owner.username }}</h5>
+      <h5 class="card-title mt-3 mb-3 px-2"><strong class="text-capitalize"> {{essential.officer }}</strong> • {{ essential.title }}</h5>
       <p class="px-2"><i class="fas fa-envelope me-3"></i>{{ essential.email }}</p>
       <p class="px-2"><i class="fas fa-map-marker me-3"></i></i>{{ essential.hood }}</p>
       <small class = "text-muted text-uppercase px-2">created on {{essential.timestamp| date:"D d M Y"}}</small>
@@ -28,7 +28,7 @@
         class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
         ><i class="fas fa-angle-double-left"></i
         ></a>
-      {% if essential.owner == user %}
+      {% if user.is_superuser %}
       <a
         href="{% url 'essential-delete' essential.id %}"
         class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"

@@ -15,29 +15,29 @@
   </div>
 </div>
 <div class="row">
-  {% for business in object_list %}
+  {% for essential in object_list %}
   <div class="col-md-3 col-sm-6 py-3">
     <div class="card card-block">
       <img class="card-img" src="{{essential.image.url}}" alt="Photo of sunset">
-      <h5 class="card-title mt-3 mb-3 px-2"><strong class="text-capitalize"> {{essential.officer }}</strong> • {{ essential.owner.username }}</h5>
+      <h5 class="card-title mt-3 mb-3 px-2"><strong class="text-capitalize"> {{essential.officer }}</strong> • {{ essential.title }}</h5>
       <p class="px-2"><i class="fas fa-envelope me-3"></i>{{ essential.email }}</p>
       <p class="px-2"><i class="fas fa-map-marker me-3"></i></i>{{ essential.hood }}</p>
-      <small class = "text-muted text-uppercase px-2">created on {{business.timestamp| date:"D d M Y"}}</small>
+      <small class = "text-muted text-uppercase px-2">created on {{essential.timestamp| date:"D d M Y"}}</small>
       <div class="px-2">
         <a
-        href="{% url 'essential-detail' business.id %}"
+        href="{% url 'essential-detail' essential.id %}"
         target="_blank"
         class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
         ><i class="fa fa-eye" aria-hidden="true"></i
       ></a>
-      {% if business.owner == user %}
+      {% if user.is_superuser %}
       <a
-        href="{% url 'essential-delete' business.id %}"
+        href="{% url 'essential-delete' essential.id %}"
         class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"
         ><i class="far fa-trash-alt"></i
       ></a>
       <a
-        href="{% url 'essential-update' business.id %}"
+        href="{% url 'essential-update' essential.id %}"
         class="btn btn-outline-primary btn-sm btn-circle m-2 shadow shadow"
         ><i class="fas fa-edit"></i
       ></a>
