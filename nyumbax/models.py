@@ -14,7 +14,7 @@ class Hood(models.Model):
     admin = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def all_users(request):
         members = Hood.objects.anotate(number_of_members=Count('user'))

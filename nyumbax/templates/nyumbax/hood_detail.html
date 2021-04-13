@@ -23,7 +23,6 @@
           <th scope="col">Location</th>
           <th scope="col">Date Created</th>
           <th scope="col">Occupants</th>
-          <th scope="col">Location</th>
           <th scope="col">actions</th>
         </tr>
       </thead>
@@ -32,7 +31,7 @@
           <th scope="row">{{ hood.title }}</th>
           <td>{{ hood.Location }}</td>
           <td>{{ hood.timestamp }}</td>
-          <td><!-- occupants to come here--></td>
+          <td>{{hood.occupants}}</td>
 
           <td>
             <a

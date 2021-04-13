@@ -6,8 +6,10 @@ from phone_field import PhoneField
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    hood = models.OneToOneField(Hood, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE)
+    hood = models.ForeignKey(
+        Hood, on_delete=models.CASCADE, null=True, related_name='occupants')
     bio = models.TextField()
     image = models.ImageField(default='default_fiis58.jpg',
                               upload_to='nyumbax_profile_pics')

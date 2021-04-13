@@ -20,14 +20,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'post_list.html'
-    queryset = Post.objects.order_by('-timestamp')
 
     def get_queryset(self):
-        query = self.request.GET.get('q')
-        if query:
-            return Post.objects.filter(title__icontains=query)
-        else:
-            return Post.objects.order_by('-timestamp')
+        return Post.objects.filter(hood=self.request.user.profile.hood)
 
 
 class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
