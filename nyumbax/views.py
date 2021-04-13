@@ -10,7 +10,7 @@ from django.views.generic import (
     DeleteView,
 
 )
-from .models import Post, Business
+from .models import Post, Business, Essential, Hood
 from django.urls import reverse_lazy
 from .forms import PostCreateForm
 from django.shortcuts import get_object_or_404
@@ -117,7 +117,7 @@ class BusinessCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class BusinessUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Business
     success_url = '/'
-    fields = ['title', 'body']
+    fields = ['title', 'email']
     success_message = "The Business updated successfully!"
 
     def form_valid(self, form):
@@ -147,3 +147,79 @@ class BusinessDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == business.owner:
             return True
         return False
+
+
+class EssentialListView(ListView):
+    model = Essential
+    template_name = 'essential_list.html'
+    queryset = Essential.objects.order_by('-timestamp')
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Essential.objects.filter(title__icontains=query)
+        else:
+            return Essential.objects.order_by('-timestamp')
+
+
+class EssentialCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Essential
+    success_url = '/'
+    fields = ['title', 'officer', 'phone', 'email', 'location']
+    success_message = "Essential created successfully!"
+
+
+class EssentialUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Essential
+    success_url = '/'
+    fields = ['title', 'officer', 'phone', 'email', 'location']
+    success_message = "The Essential updated successfully!"
+
+
+class EssentialDetailView(DetailView):
+    model = Essential
+    success_url = '/'
+
+
+class EssentialDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Essential
+    success_url = '/'
+    success_message = "The Essential %(title) was deleted successfully!"
+
+
+class HoodListView(ListView):
+    model = Hood
+    template_name = 'hood_list.html'
+    queryset = Hood.objects.order_by('title')
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Hood.objects.filter(title__icontaihoodns=query)
+        else:
+            return Hood.objects.order_by('title')
+
+
+class HoodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Hood
+    success_url = '/'
+    fields = ['title', 'location', 'admin']
+    success_message = "Hood created successfully!"
+
+
+class HoodUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Hood
+    success_url = '/'
+    fields = ['title', 'location', 'admin']
+    success_message = "The Hood updated successfully!"
+
+
+class HoodDetailView(DetailView):
+    model = Hood
+    success_url = '/'
+
+
+class HoodDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Hood
+    success_url = '/'
+    success_message = "The Hood %(title) was deleted successfully!"

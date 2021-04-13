@@ -7,20 +7,11 @@ from django.db.models import Count
 # Create your models here.
 
 
-class Location(models.Model):
-    title = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.title
-
-
 class Hood(models.Model):
-    name = models.CharField(max_length=100)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
     timestamp = models.DateTimeField(default=timezone.now)
     admin = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -60,7 +51,7 @@ class Essential(models.Model):
     officer = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

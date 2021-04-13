@@ -14,6 +14,18 @@ from .views import (
     BusinessDeleteView,
     BusinessDetailView,
 
+
+    EssentialListView,
+    EssentialCreateView,
+    EssentialUpdateView,
+    EssentialDeleteView,
+    EssentialDetailView,
+
+    HoodListView,
+    HoodCreateView,
+    HoodUpdateView,
+    HoodDeleteView,
+    HoodDetailView,
 )
 
 urlpatterns = [
@@ -30,4 +42,22 @@ urlpatterns = [
          BusinessUpdateView.as_view(), name="business-update"),
     path('business/<int:pk>/delete/',
          BusinessDeleteView.as_view(), name="business-delete"),
+
+    path('essential/', EssentialListView.as_view(), name="essential-home"),
+    path('essential/<int:pk>/', EssentialDetailView.as_view(),
+         name="essential-detail"),
+    path('essential/new/', EssentialCreateView.as_view(), name="essential-create"),
+    path('essential/<int:pk>/update/',
+         EssentialUpdateView.as_view(), name="essential-update"),
+    path('essential/<int:pk>/delete/',
+         EssentialDeleteView.as_view(), name="essential-delete"),
+
+    path('hood/', HoodListView.as_view(), name="hood-home"),
+    path('hood/<int:pk>/', HoodDetailView.as_view(), name="hood-detail"),
+    path('hood/new/', HoodCreateView.as_view(), name="hood-create"),
+    path('hood/<int:pk>/update/',
+         HoodUpdateView.as_view(), name="hood-update"),
+    path('hood/<int:pk>/delete/',
+         HoodDeleteView.as_view(), name="hood-delete"),
+
 ]

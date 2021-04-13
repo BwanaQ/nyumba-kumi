@@ -1,0 +1,65 @@
+{% extends 'nyumbax/base.html' %} {% block content %}
+<div class="row pt-5">
+  <div class="col-12">
+    <h2 class="text-center">Essential Contacts</h2>
+  </div>
+  <hr />
+</div>
+<div class="row">
+  <div class="col-12">
+    <a
+      href="{% url 'essential-create' %}"
+      class="btn btn-primary btn-sm btn-circle float-start m-2 shadow"
+      ><i class="fa fa-plus" aria-hidden="true"></i
+    ></a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <table class="table table-striped border">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Officer</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Email</th>
+          <th scope="col">Location</th>
+          <th scope="col">actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for essential in object_list %}
+        <tr>
+          <th scope="row">{{ essential.title }}</th>
+          <td>{{ essential.officer }}</td>
+          <td>{{ essential.phone }}</td>
+          <td>{{ essential.email }}</td>
+          <td>{{ essential.location }}</td>
+
+          <td>
+            <a
+              href="{% url 'essential-detail' essential.id %}"
+              target="_blank"
+              class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
+              ><i class="fa fa-eye" aria-hidden="true"></i
+            ></a>
+            {% if essential.owner == user %}
+            <a
+              href="{% url 'essential-delete' essential.id %}"
+              class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"
+              ><i class="far fa-trash-alt"></i
+            ></a>
+            <a
+              href="{% url 'essential-update' essential.id %}"
+              class="btn btn-outline-primary btn-sm btn-circle m-2 shadow shadow"
+              ><i class="fas fa-edit"></i
+            ></a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
