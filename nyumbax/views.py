@@ -84,11 +84,7 @@ class BusinessListView(ListView):
     queryset = Business.objects.order_by('-timestamp')
 
     def get_queryset(self):
-        query = self.request.GET.get('q')
-        if query:
-            return Business.objects.filter(title__icontains=query)
-        else:
-            return Business.objects.order_by('-timestamp')
+        return Business.objects.filter(hood=self.request.user.profile.hood)
 
 
 class BusinessCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -147,14 +143,9 @@ class BusinessDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class EssentialListView(ListView):
     model = Essential
     template_name = 'essential_list.html'
-    queryset = Essential.objects.order_by('-timestamp')
 
     def get_queryset(self):
-        query = self.request.GET.get('q')
-        if query:
-            return Essential.objects.filter(title__icontains=query)
-        else:
-            return Essential.objects.order_by('-timestamp')
+        return Essential.objects.filter(hood=self.request.user.profile.hood).order_by('title')
 
 
 class EssentialCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

@@ -9,6 +9,7 @@ from django.db.models import Count
 
 class Hood(models.Model):
     title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/')
     location = models.CharField(max_length=100)
     timestamp = models.DateTimeField(default=timezone.now)
     admin = models.CharField(max_length=100)
@@ -23,7 +24,9 @@ class Hood(models.Model):
 
 class Business(models.Model):
     title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/')
     email = models.CharField(max_length=100)
+    body = models.CharField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
@@ -37,6 +40,7 @@ class Business(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/')
     body = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
@@ -48,6 +52,7 @@ class Post(models.Model):
 
 class Essential(models.Model):
     title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/')
     officer = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
     email = models.CharField(max_length=100)

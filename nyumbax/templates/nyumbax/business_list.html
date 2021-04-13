@@ -15,48 +15,36 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12">
-    <table class="table table-striped border">
-      <thead>
-        <tr>
-          <th scope="col">Owner</th>
-          <th scope="col">Title</th>
-          <th scope="col">Email</th>
-          <th scope="col">Time Created</th>
-          <th scope="col">actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for business in object_list %}
-        <tr>
-          <th scope="row">{{ business.owner.username }}</th>
-          <td>{{ business.title }}</td>
-          <td>{{ business.email }}</td>
-          <td>{{business.timestamp| date:"D d M Y"}}</td>
-          <td>
-            <a
-              href="{% url 'business-detail' business.id %}"
-              target="_blank"
-              class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
-              ><i class="fa fa-eye" aria-hidden="true"></i
-            ></a>
-            {% if business.owner == user %}
-            <a
-              href="{% url 'business-delete' business.id %}"
-              class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"
-              ><i class="far fa-trash-alt"></i
-            ></a>
-            <a
-              href="{% url 'business-update' business.id %}"
-              class="btn btn-outline-primary btn-sm btn-circle m-2 shadow shadow"
-              ><i class="fas fa-edit"></i
-            ></a>
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  {% for business in object_list %}
+  <div class="col-md-3 col-sm-6">
+    <div class="card card-block">
+      <img class="card-img" src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset">
+      <h5 class="card-title mt-3 mb-3 px-2"><strong class="text-capitalize"> {{business.title }}</strong> • {{ business.owner.username }}</h5>
+      <p class="px-2">{{ business.email }}</p> 
+      <small class = "text-muted text-uppercase px-2">created on {{business.timestamp| date:"D d M Y"}}</small>
+      <div class="px-2">
+        <a
+        href="{% url 'business-detail' business.id %}"
+        target="_blank"
+        class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
+        ><i class="fa fa-eye" aria-hidden="true"></i
+      ></a>
+      {% if business.owner == user %}
+      <a
+        href="{% url 'business-delete' business.id %}"
+        class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"
+        ><i class="far fa-trash-alt"></i
+      ></a>
+      <a
+        href="{% url 'business-update' business.id %}"
+        class="btn btn-outline-primary btn-sm btn-circle m-2 shadow shadow"
+        ><i class="fas fa-edit"></i
+      ></a>
+      {% endif %}
+      </div>
+    </div>
   </div>
+  {% endfor %}
+</div>
 </div>
 {% endblock %}
