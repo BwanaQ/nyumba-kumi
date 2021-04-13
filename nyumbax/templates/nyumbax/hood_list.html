@@ -1,7 +1,7 @@
 {% extends 'nyumbax/base.html' %} {% block content %}
 <div class="row pt-5">
   <div class="col-12">
-    <h2 class="text-center">Browse Hoods</h2>
+    <h2 class="text-center">Hood Listing</h2>
   </div>
   <hr />
 </div>
@@ -15,48 +15,37 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12">
-    <table class="table table-striped border">
-      <thead>
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Location</th>
-          <th scope="col">Date Created</th>
-          <th scope="col">Occupants</th>
-          <th scope="col">Location</th>
-          <th scope="col">actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for hood in object_list %}
-        <tr>
-          <th scope="row">{{ hood.title }}</th>
-          <td>{{ hood.Location }}</td>
-          <td>{{ hood.timestamp }}</td>
-          <td><!-- occupants to come here--></td>
-
-          <td>
-            <a
-              href="{% url 'hood-detail' hood.id %}"
-              target="_blank"
-              class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
-              ><i class="fa fa-eye" aria-hidden="true"></i
-            ></a>
-            <a
-              href="{% url 'hood-delete' hood.id %}"
-              class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"
-              ><i class="far fa-trash-alt"></i
-            ></a>
-            <a
-              href="{% url 'hood-update' hood.id %}"
-              class="btn btn-outline-primary btn-sm btn-circle m-2 shadow shadow"
-              ><i class="fas fa-edit"></i
-            ></a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  {% for hood in object_list %}
+  <div class="col-md-3 col-sm-6 py-3">
+    <div class="card card-block">
+      <img class="card-img" src="{{hood.image.url}}" alt="Photo of sunset">
+      <h5 class="card-title mt-3 mb-3 px-2"><strong class="text-capitalize"> {{hood.title }}</strong></h5>
+      <p class="px-2"><i class="fas fa-map-marker me-3"></i></i>{{ hood.location }}</p>
+      <p class="px-2"><i class="fas fa-user-shield me-3"></i></i>{{ hood.admin }}</p>
+      <small class = "text-muted text-uppercase px-2">created on {{hood.timestamp| date:"D d M Y"}}</small>
+      <div class="px-2">
+        <a
+        href="{% url 'hood-detail' hood.id %}"
+        target="_blank"
+        class="btn btn-outline-success btn-circle btn-sm m-2 shadow"
+        ><i class="fa fa-eye" aria-hidden="true"></i
+      ></a>
+      {% if hood.owner == user %}
+      <a
+        href="{% url 'hood-delete' hood.id %}"
+        class="btn btn-outline-danger btn-circle btn-sm m-2 shadow"
+        ><i class="far fa-trash-alt"></i
+      ></a>
+      <a
+        href="{% url 'hood-update' hood.id %}"
+        class="btn btn-outline-primary btn-sm btn-circle m-2 shadow shadow"
+        ><i class="fas fa-edit"></i
+      ></a>
+      {% endif %}
+      </div>
+    </div>
   </div>
+  {% endfor %}
+</div>
 </div>
 {% endblock %}

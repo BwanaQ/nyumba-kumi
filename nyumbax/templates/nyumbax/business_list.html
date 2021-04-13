@@ -18,7 +18,7 @@
   {% for business in object_list %}
   <div class="col-md-3 col-sm-6">
     <div class="card card-block">
-      <img class="card-img" src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset">
+      <img class="card-img" src="{{business.image.url}}" alt="Photo of sunset">
       <h5 class="card-title mt-3 mb-3 px-2"><strong class="text-capitalize"> {{business.title }}</strong> • {{ business.owner.username }}</h5>
       <p class="px-2">{{ business.email }}</p> 
       <small class = "text-muted text-uppercase px-2">created on {{business.timestamp| date:"D d M Y"}}</small>

@@ -28,7 +28,7 @@ class PostListView(LoginRequiredMixin, ListView):
 class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Post
     success_url = '/'
-    fields = ['title', 'body']
+    fields = ['title', 'body', 'image']
     success_message = "The Post created successfully!"
 
     def form_valid(self, form):
@@ -46,7 +46,7 @@ class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Post
     success_url = '/'
-    fields = ['title', 'body']
+    fields = ['title', 'body', 'image']
     success_message = "The Post updated successfully!"
 
     def form_valid(self, form):
@@ -90,7 +90,7 @@ class BusinessListView(ListView):
 class BusinessCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Business
     success_url = '/'
-    fields = ['title', 'email']
+    fields = ['title', 'email', 'image']
     success_message = "Business created successfully!"
 
     def form_valid(self, form):
@@ -108,7 +108,7 @@ class BusinessCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class BusinessUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Business
     success_url = '/'
-    fields = ['title', 'email']
+    fields = ['title', 'email', 'image']
     success_message = "The Business updated successfully!"
 
     def form_valid(self, form):
@@ -151,14 +151,14 @@ class EssentialListView(ListView):
 class EssentialCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Essential
     success_url = '/'
-    fields = ['title', 'officer', 'phone', 'email', 'location']
+    fields = ['title', 'officer', 'phone', 'email', 'hood', 'image']
     success_message = "Essential created successfully!"
 
 
 class EssentialUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Essential
     success_url = '/'
-    fields = ['title', 'officer', 'phone', 'email', 'location']
+    fields = ['title', 'officer', 'phone', 'email', 'hood', 'image']
     success_message = "The Essential updated successfully!"
 
 
@@ -189,14 +189,14 @@ class HoodListView(ListView):
 class HoodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Hood
     success_url = '/'
-    fields = ['title', 'location', 'admin']
+    fields = ['title', 'location', 'admin', 'image']
     success_message = "Hood created successfully!"
 
 
 class HoodUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Hood
     success_url = '/'
-    fields = ['title', 'location', 'admin']
+    fields = ['title', 'location', 'admin', 'image']
     success_message = "The Hood updated successfully!"
 
 
