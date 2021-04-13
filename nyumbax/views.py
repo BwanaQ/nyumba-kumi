@@ -17,7 +17,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.messages.views import SuccessMessageMixin
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'post_list.html'
     queryset = Post.objects.order_by('-timestamp')
