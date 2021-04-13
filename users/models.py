@@ -13,6 +13,7 @@ class Profile(models.Model):
                               upload_to='nyumbax_profile_pics')
     phone_number = PhoneField(
         blank=True, help_text='Contact phone number', E164_only=False)
+    is_admin = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user.username} Profile"
